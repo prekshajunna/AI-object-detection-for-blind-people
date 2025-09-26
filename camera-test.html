@@ -1,0 +1,16 @@
+<!DOCTYPE html> 
+<html>
+<body>
+  <h2>Camera Test</h2>
+  <video autoplay width="400" id="video"></video>
+  <script>
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        document.getElementById('video').srcObject = stream;
+      })
+      .catch(error => {
+        alert("Camera access denied: " + error.message);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Mic Test</h2>
+<p id="output">Say something...</p>
+
+<script>
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) { 
+  const recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.lang = "en-US";
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[event.results.length - 1][0].transcript;
+    document.getElementById("output").innerText = "You said: " + transcript;
+    console.log("Heard:", transcript);
+  };
+
+  recognition.start();
+} else {
+  document.getElementById("output").innerText = "Speech recognition not supported in this browser!";
+}
+</script>
+</body>
+</html>

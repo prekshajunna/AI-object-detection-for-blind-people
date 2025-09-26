@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Mic Test</h2>
+<p id="status">Waiting...</p>
+
+<script>
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.lang = "en-IN";
+
+  recognition.onstart = () => {
+    document.getElementById("status").innerText = "🎤 Listening...";
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[event.results.length - 1][0].transcript;
+    document.getElementById("status").innerText = "You said: " + transcript;
+    console.log("Heard:", transcript);
+  };
+
+  recognition.onerror = (e) => {
+    document.getElementById("status").innerText = "Error: " + e.error;
+  };
+
+  recognition.start();
+} else {
+  document.getElementById("status").innerText = "Speech recognition not supported in this browser!";
+}
+</script>
+</body>
+</html>
